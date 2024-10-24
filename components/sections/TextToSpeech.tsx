@@ -40,7 +40,7 @@ export default function TextToSpeech() {
   }
 
   return (
-    <div className="bg-red-500 w-full p-4 rounded-md">
+    <section className="bg-red-500 w-full p-4 rounded-md">
       <h2 className="text-xl font-semibold text-white mb-4">Texto para Fala</h2>
       <div className="flex flex-col gap-3">
         <Textarea
@@ -105,6 +105,6 @@ export default function TextToSpeech() {
           </p>
         )}
       </div>
-    </div>
+    </section>
   )
 }

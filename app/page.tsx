@@ -1,4 +1,6 @@
 import Answers from '@/components/sections/Answers'
+import ImageGen from '@/components/sections/ImageGen'
+import ImageRecognition from '@/components/sections/ImageRecognition'
 import TextToSpeech from '@/components/sections/TextToSpeech'
 
 export default function Home() {
@@ -17,13 +19,9 @@ export default function Home() {
 
         <TextToSpeech />
 
-        <section className="bg-blue-500 rounded-md p-5 w-full">
-          <h2 className="text-xl font-semibold">Geração de imagens</h2>
-        </section>
+        <ImageGen />
 
-        <section className="bg-green-500 rounded-md p-5 w-full">
-          <h2 className="text-xl font-semibold">Reconhecimento de imagens</h2>
-        </section>
+        <ImageRecognition />
 
         <section className="bg-yellow-500 rounded-md p-5 w-full">
           <h2 className="text-xl font-semibold">

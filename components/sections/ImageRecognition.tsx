@@ -21,7 +21,7 @@ export default function ImageRecognition() {
     if (file) {
       try {
         const options = {
-          maxSizeMB: 0.9,
+          maxSizeMB: 0.2,
           maxWidthOrHeight: 1920,
           useWebWorker: true,
         }

@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from '../ui/select'
 import { generateTextToSpeech, Voice } from '@/services/ai'
+import { useAnalytics } from '@/analytics/AnalyticsContext'
 
 const voices: { id: Voice; name: string }[] = [
   { id: 'alloy', name: 'Alloy' },
@@ -24,6 +25,7 @@ const voices: { id: Voice; name: string }[] = [
 ]
 
 export default function TextToSpeech() {
+  const analytics = useAnalytics()
   const [text, setText] = useState('')
   const [selectedVoice, setSelectedVoice] = useState<Voice>(voices[0].id)
   const [isLoading, setIsLoading] = useState(false)
@@ -38,6 +40,11 @@ export default function TextToSpeech() {
       const audioBlob = base64ToBlob(base64Audio, 'audio/mp3')
       const audioUrl = URL.createObjectURL(audioBlob)
       setAudioUrl(audioUrl)
+      analytics.trackEvent('Texto para Fala', {
+        texto: text,
+        voz: selectedVoice,
+        audioUrl,
+      })
     } catch (error) {
       console.error(error)
     }

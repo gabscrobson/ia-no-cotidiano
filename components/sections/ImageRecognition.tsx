@@ -5,8 +5,10 @@ import { Button } from '@/components/ui/button'
 import { Loader, Camera, Upload, Eye } from 'lucide-react'
 import { recognizeImage } from '@/services/ai'
 import imageCompression from 'browser-image-compression'
+import { useAnalytics } from '@/analytics/AnalyticsContext'
 
 export default function ImageRecognition() {
+  const analytics = useAnalytics()
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [recognitionResult, setRecognitionResult] = useState<string | null>(
@@ -45,6 +47,10 @@ export default function ImageRecognition() {
     try {
       const response = await recognizeImage(selectedImage)
       setRecognitionResult(response)
+      analytics.trackEvent('Reconhecimento de Imagem', {
+        imagem: selectedImage,
+        resultado: response,
+      })
     } catch (error) {
       console.error(error)
       setRecognitionResult('Erro ao reconhecer a imagem')

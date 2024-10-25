@@ -5,8 +5,10 @@ import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Loader, Image as ImageIcon } from 'lucide-react'
 import { generateImage } from '@/services/ai'
+import { useAnalytics } from '@/analytics/AnalyticsContext'
 
 export default function ImageGen() {
+  const analytics = useAnalytics()
   const [prompt, setPrompt] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [generatedImageUrl, setGeneratedImageUrl] = useState('')
@@ -19,6 +21,10 @@ export default function ImageGen() {
 
       if (imageUrl) {
         setGeneratedImageUrl(imageUrl)
+        analytics.trackEvent('Imagem', {
+          prompt,
+          imageUrl,
+        })
       }
     } catch (error) {
       console.error(error)

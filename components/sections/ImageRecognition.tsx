@@ -4,6 +4,7 @@ import { useState, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { Loader, Camera, Upload } from 'lucide-react'
 import { recognizeImage } from '@/services/ai'
+import imageCompression from 'browser-image-compression'
 
 export default function ImageRecognition() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
@@ -13,15 +14,25 @@ export default function ImageRecognition() {
   )
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const handleImageSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageSelect = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const file = event.target.files?.[0]
     if (file) {
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        setSelectedImage(e.target?.result as string)
+      try {
+        const options = {
+          maxSizeMB: 0.9,
+          maxWidthOrHeight: 1920,
+          useWebWorker: true,
+        }
+        const compressedFile = await imageCompression(file, options)
+        const compressedImage =
+          await imageCompression.getDataUrlFromFile(compressedFile)
+        setSelectedImage(compressedImage)
         setRecognitionResult(null)
+      } catch (error) {
+        console.error('Error compressing image:', error)
       }
-      reader.readAsDataURL(file)
     }
   }
 
@@ -36,7 +47,7 @@ export default function ImageRecognition() {
       setRecognitionResult(response)
     } catch (error) {
       console.error(error)
-      setRecognitionResult('Erro ao reconhecer a imagem: ' + error)
+      setRecognitionResult('Erro ao reconhecer a imagem')
     }
 
     setIsLoading(false)

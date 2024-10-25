@@ -11,11 +11,11 @@ export default function Home() {
         Inteligência artificial no cotidiano
       </h1>
       <p className="text-lg">
-        A inteligência artificial já está presente no nosso dia-a-dia, mas quais
-        outras mudanças podemos esperar?
+        A inteligência artificial já está presente no nosso dia-a-dia, mas de
+        quais formas ela pode aparecer e o que podemos esperar para o futuro?
       </p>
 
-      <div className="flex flex-col items-center gap-3 mt-10 text-left">
+      <div className="flex flex-col items-center gap-3 mt-4 text-left">
         <Answers />
 
         <TextToSpeech />
@@ -26,6 +26,13 @@ export default function Home() {
 
         {/* <Recomendations /> */}
       </div>
+
+      <p className="text-lg mt-4">
+        Essa é uma experiência desenvolvida pelos alunos de Atividade
+        Integradora V: Gabriel Accetta, Matheus Rodrigues, Maria Eduarda
+        Gemesio, Rafael Canejo, Cauã Carvalho, Rafael Lucena, Vitor Barros e
+        Fernando Ibraim
+      </p>
     </div>
   )
 }

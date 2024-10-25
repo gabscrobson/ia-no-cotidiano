@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Loader, Image as ImageIcon } from 'lucide-react'
+import { generateImage } from '@/services/ai'
 
 export default function ImageGen() {
   const [prompt, setPrompt] = useState('')
@@ -12,12 +13,17 @@ export default function ImageGen() {
 
   const handleGenerateImage = async () => {
     setIsLoading(true)
-    // Simulate image generation delay
-    await new Promise((resolve) => setTimeout(resolve, 3000))
 
-    // In a real application, you would call an API to generate the image here
-    // For this example, we'll just set a dummy image URL
-    setGeneratedImageUrl('https://picsum.photos/seed/ai-generated/400/400')
+    try {
+      const imageUrl = await generateImage(prompt)
+
+      if (imageUrl) {
+        setGeneratedImageUrl(imageUrl)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+
     setIsLoading(false)
   }
 

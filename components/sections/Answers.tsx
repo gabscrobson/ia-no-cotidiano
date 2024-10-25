@@ -13,8 +13,6 @@ export default function Answers() {
 
   const handleAskQuestion = async () => {
     setIsLoading(true)
-    // Simulate AI response delay
-    await new Promise((resolve) => setTimeout(resolve, 2000))
 
     const response = await generateResponse(question)
 

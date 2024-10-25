@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { Loader, Camera, Upload } from 'lucide-react'
+import { recognizeImage } from '@/services/ai'
 
 export default function ImageRecognition() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
@@ -30,14 +31,14 @@ export default function ImageRecognition() {
     setIsLoading(true)
     setRecognitionResult(null)
 
-    // Simulate image recognition delay
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    try {
+      const response = await recognizeImage(selectedImage)
+      setRecognitionResult(response)
+    } catch (error) {
+      console.error(error)
+      setRecognitionResult('Erro ao reconhecer a imagem')
+    }
 
-    // In a real application, you would call an API for image recognition here
-    // For this example, we'll just set a dummy result
-    setRecognitionResult(
-      'A imagem mostra uma pessoa sorrindo em um parque ensolarado com árvores ao fundo.',
-    )
     setIsLoading(false)
   }
 

@@ -23,7 +23,6 @@ export async function generateResponse(
     model: 'gpt-4o-mini',
   })
 
-  console.log(response.choices[0].message)
   return response.choices[0].message.content
 }
 
@@ -55,18 +54,21 @@ export async function generateImage(prompt: string) {
   return response.data[0].url
 }
 
-export async function recognizeImage(image: string) {
+export async function recognizeImage(image: string): Promise<string | null> {
   const response = await openai.chat.completions.create({
     model: 'gpt-4o-mini',
     messages: [
       {
         role: 'user',
         content: [
-          { type: 'text', text: 'O que tem nessa imagem?' },
+          {
+            type: 'text',
+            text: 'O que tem nessa imagem? Se não puder descrever pessoas, descreva o ambiente ao redor dizendo só que existe uma pessoa no ambiente',
+          },
           {
             type: 'image_url',
             image_url: {
-              url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg',
+              url: image,
             },
           },
         ],
@@ -74,5 +76,5 @@ export async function recognizeImage(image: string) {
     ],
   })
 
-  return response.choices[0]
+  return response.choices[0].message.content
 }

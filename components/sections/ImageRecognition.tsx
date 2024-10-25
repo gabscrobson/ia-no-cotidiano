@@ -36,7 +36,7 @@ export default function ImageRecognition() {
       setRecognitionResult(response)
     } catch (error) {
       console.error(error)
-      setRecognitionResult('Erro ao reconhecer a imagem')
+      setRecognitionResult('Erro ao reconhecer a imagem: ' + error)
     }
 
     setIsLoading(false)

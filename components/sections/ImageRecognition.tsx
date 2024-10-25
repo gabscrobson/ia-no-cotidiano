@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react'
 import { Button } from '@/components/ui/button'
-import { Loader, Camera, Upload } from 'lucide-react'
+import { Loader, Camera, Upload, Eye } from 'lucide-react'
 import { recognizeImage } from '@/services/ai'
 import imageCompression from 'browser-image-compression'
 
@@ -122,7 +122,10 @@ export default function ImageRecognition() {
               <Loader className="ml-2 h-4 w-4 animate-spin" />
             </>
           ) : (
-            'Reconhecer Imagem'
+            <>
+              Reconhecer Imagem
+              <Eye className="ml-2 h-4 w-4" />
+            </>
           )}
         </Button>
 

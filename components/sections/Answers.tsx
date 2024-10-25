@@ -5,8 +5,10 @@ import { Textarea } from '../ui/textarea'
 import { useState } from 'react'
 import { Loader, Sparkles } from 'lucide-react'
 import { generateResponse } from '@/services/ai'
+import { useAnalytics } from '@/analytics/AnalyticsContext'
 
 export default function Answers() {
+  const analytics = useAnalytics()
   const [question, setQuestion] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [aiResponse, setAiResponse] = useState('')
@@ -18,6 +20,10 @@ export default function Answers() {
 
     if (response) {
       setAiResponse(response)
+      analytics.trackEvent('Pergunta', {
+        pergunta: question,
+        resposta: response,
+      })
     }
 
     setIsLoading(false)

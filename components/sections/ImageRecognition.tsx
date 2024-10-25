@@ -53,6 +53,20 @@ export default function ImageRecognition() {
     setIsLoading(false)
   }
 
+  const openFileSelector = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.removeAttribute('capture')
+      fileInputRef.current.click()
+    }
+  }
+
+  const openCamera = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.setAttribute('capture', 'environment')
+      fileInputRef.current.click()
+    }
+  }
+
   return (
     <section className="bg-green-500 w-full max-w-2xl mx-auto p-4 rounded-md">
       <h2 className="text-xl font-semibold text-white mb-4">
@@ -71,14 +85,14 @@ export default function ImageRecognition() {
           />
           <div className="flex flex-col gap-2 sm:flex-col">
             <Button
-              onClick={() => fileInputRef.current?.click()}
+              onClick={openFileSelector}
               className="bg-white text-green-500 hover:bg-green-100 focus-visible:ring-offset-green-500"
             >
               <Upload className="mr-2 h-4 w-4" />
               Selecionar Imagem
             </Button>
             <Button
-              onClick={() => fileInputRef.current?.click()}
+              onClick={openCamera}
               className="bg-white text-green-500 hover:bg-green-100 focus-visible:ring-offset-green-500"
             >
               <Camera className="mr-2 h-4 w-4" />

@@ -15,7 +15,7 @@ export default function Home() {
         quais formas ela pode aparecer e o que podemos esperar para o futuro?
       </p>
 
-      <div className="flex flex-col items-center gap-3 mt-4 text-left">
+      <div className="flex flex-col items-center gap-3 mt-4 text-left w-full max-w-2xl">
         <Answers />
 
         <TextToSpeech />
